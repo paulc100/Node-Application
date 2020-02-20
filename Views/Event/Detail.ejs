@@ -1,0 +1,36 @@
+<% layout('../layouts/mainlayout.ejs') -%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <main role="main" class="container">
+        <br />
+        <br />
+        <div class="container">
+            <h1><%= event.title %> Participants</h1>
+            <br />
+        </div>
+        <div class="container card-deck">
+            <% for(var i=0; i < event.attendees.length; i++) { %>
+            <div class="card mb-3" style="min-width: 20rem; max-width: 25rem;">
+                <div class="card-header">
+                    <%= event.attendees[i].username %>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Name: </b><%= event.attendees[i].firstName %>
+                        <%= event.attendees[i].lastName %></b></li>
+                    <li class="list-group-item"><b>Email: </b><%= event.attendees[i].email %></b></li>
+                </ul>
+            </div>
+            <% } %>
+        </div>
+    </main>
+</body>
+
+</html>

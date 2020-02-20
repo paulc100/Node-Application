@@ -1,0 +1,39 @@
+<% layout('../layouts/mainlayout.ejs') -%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <main role="main" class="container">
+        <br />
+        <br />
+        <div class="container">
+            <h1>Home</h1>
+            <br/>
+        </div>
+        <%if (reqInfo.authenticated) { %>
+        <div class="jumbotron">
+            <h1 class="display-4">Hello <%= reqInfo.username %>!</h1>
+            <p class="lead">You are logged in, welcome!</p>
+        </div>
+        <% } else { %>
+        <div class="jumbotron">
+            <h1 class="display-4">Hello!</h1>
+            <p class="lead">This is the homepage.</p>
+            <hr class="my-4">
+            <p>Register or Login to access all our amazing events!</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="User/Login" role="button">Login</a>
+                <a class="btn btn-primary btn-lg" href="User/Register" role="button">Register Now</a>
+            </p>
+        </div>
+        <% } %>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<% layout('../layouts/mainlayout.ejs') -%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <main role="main" class="container">
+        <br/>
+        <br/>
+        <div class="container">
+            <h1>Profile</h1>
+            <br/>
+        </div>
+        <div class="starter-template">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Username: </b><%= user.username %></li>
+                <li class="list-group-item"><b>Email: </b><%= user.email %></li>
+                <li class="list-group-item"><b>First Name: </b><%= user.firstName %></li>
+                <li class="list-group-item"><b>Last Name: </b><%= user.lastName %></li>
+                <li class="list-group-item"><b>Street Address: </b><%= user.streetAddress %></li>
+                <li class="list-group-item"><b>Phone Number: </b><%= user.phoneNumber %></li>
+                <li class="list-group-item"><a href='/User/Edit?username=<%= user.username %>'>Edit Profile</a></li>                  
+            </ul>
+        </div>
+    </main>
+</body>
+
+</html>

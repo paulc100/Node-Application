@@ -1,0 +1,73 @@
+<% layout('../layouts/mainlayout.ejs') -%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <main role="main" class="container">
+        <br />
+        <br />
+        <div class="container">
+            <h1>Events</h1>
+            <br/>
+            <a href="/Event/Create">Create Event</a>
+        </div>
+        <br/>
+        <div class="container card-deck">
+            <% for(var i=0; i < events.length; i++) { %>
+            <div class="card mb-3" style="min-width: 17rem; max-width: 17rem;">
+                <%
+                var d = events[i].day.toDateString();
+                var join = "True";
+                %>
+                <h5 class="card-header"><%= events[i].title %></h5>
+                <div class="card-body">
+                    <h5 class="card-title"><%= d %> at <%= events[i].time %></h5>
+                    <p class="card-text"><%= events[i].description %></p>
+                    <p class="card-text">Location: <%= events[i].location %></p>
+                    <p class="card-text">Created By: <%= events[i].createdby %></p>
+                    
+                    <div class="btn-toolbar">
+                    <a href="/Event/Detail?_id=<%= events[i]._id %>" class="btn btn-outline-primary" style="margin-right: 10px; margin-top: 10px;">Participants</a>
+                    <% for(var j=0; j < events[i].attendees.length; j++) { %>
+                    <%if (events[i].attendees[j].username == user.username) {
+                        var join = "False" %>
+                    <form action="/Event/Leave" method="POST">
+                        <input id="_id" name="_id" type="hidden" value=<%= events[i]._id %> />
+                        <input id="firstName" name="firstName" type="hidden" value=<%= user.firstName %> />
+                        <input id="lastName" name="lastName" type="hidden" value=<%= user.lastName %> />
+                        <input id="email" name="email" type="hidden" value=<%= user.email %> />
+                        <input class="btn btn-outline-danger" style="margin-right: 10px; margin-top: 10px;" type="submit" value="Leave">
+                    </form>
+                    <% }} %>
+                    <% if(join=="True"){ %>
+                    <form action="/Event/Join" method="POST">
+                        <input id="_id" name="_id" type="hidden" value=<%= events[i]._id %> />
+                        <input id="firstName" name="firstName" type="hidden" value=<%= user.firstName %> />
+                        <input id="lastName" name="lastName" type="hidden" value=<%= user.lastName %> />
+                        <input id="email" name="email" type="hidden" value=<%= user.email %> />
+                        <input class="btn btn-outline-success" style="margin-right: 10px; margin-top: 10px;" type="submit" value="Join">
+                    </form>
+                    <% } %>
+                    <%if (reqInfo.authenticated && (events[i].createdby == user.username)) { %>
+                    <a href="/Event/Edit?_id=<%= events[i]._id %>" class="btn btn-outline-primary" style="margin-right: 10px; margin-top: 10px;">Edit</a>
+
+                    <form action="/Event/Delete" method="POST">
+                        <input id="_id" name="_id" type="hidden" value=<%= events[i]._id %> />
+                        <input class="btn btn-outline-danger" style="margin-right: 10px; margin-top: 10px;" type="submit" value="Delete">
+                    </form>
+                    <% } %>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </main>
+</body>
+
+</html>
